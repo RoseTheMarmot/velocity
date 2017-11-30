@@ -52,6 +52,8 @@ get_header(); ?>
 					wp_nav_menu( array(
 						'theme_location' => 'mid-front-page',
 						'menu_id'        => 'mid-front-page-menu',
+						'menu_class'     => 'mid-front-page-menu',
+						'walker'         => new Walker_Mid_Front_Page_Menu()
 					) );
 				?>
 			</nav><!-- #mid-front-page-navigation -->
@@ -64,3 +66,36 @@ get_header(); ?>
 <?php
 get_sidebar();
 get_footer();
+
+class Walker_Mid_Front_Page_Menu extends Walker {
+
+	// Tell Walker where to inherit it's parent and id values
+	var $db_fields = array(
+		'parent' => 'menu_item_parent', 
+		'id'     => 'db_id' 
+	);
+
+	// Note: Menu objects include url and title properties.
+	function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
+		$background_image = get_the_post_thumbnail_url($item->object_id);
+		$output .= sprintf( "\n<li><a href='%s'%s%s><h2>%s</h2></a>",
+			$item->url,
+			( $item->object_id === get_the_ID() ) ? ' class="current"' : '',
+			( !empty($background_image) ) ? 'style="background-image:url('.$background_image.');"' : '',
+			$item->title
+		);
+	}
+
+	function end_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
+		$output .= "</li>\n";
+	}
+
+	function start_lvl( &$output, $depth = 0, $args = array() ) {
+		$output .= "\n<ul class=\"sub-menu\">";
+	}
+
+	function end_lvl( &$output, $depth = 0, $args = array() ) {
+		$output .= "</ul>\n";
+	}
+
+}
