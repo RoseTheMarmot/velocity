@@ -272,6 +272,7 @@ textarea {
 }
 
 h1, h2, h3, h4, h5, h6 { clear: both; font-weight: bold; }
+h1, h2 { font-family: 'Orbitron', sans-serif; font-weight: normal; }
 
 p { margin-bottom: 1.5em; }
 
@@ -438,14 +439,15 @@ textarea { width: 100%; }
 --------------------------------------------------------------*/
 a { 
 	color: #e10013;
-	-webkit-transition: all 0.4s;
-  	-moz-transition: max-height 0.4s;
-  	-ms-transition: all 0.4s;
-  	-o-transition: all 0.4s;
-  	transition: all 0.4s;
+	text-decoration: none;
+	-webkit-transition: color 0.4s, border-color 0.6s, background-color 0.6s;
+  	-moz-transition: color 0.4s, border-color 0.6s, background-color 0.6s;
+  	-ms-transition: color 0.4s, border-color 0.6s, background-color 0.6s;
+  	-o-transition: color 0.4s, border-color 0.6s, background-color 0.6s;
+  	transition: color 0.4s, border-color 0.6s, background-color 0.6s;
   }
-a:visited { color: #960f1a; }
-a:hover, a:focus, a:active { color: #960f1a; }
+a:visited { color: #960f1a; border-bottom: 3px solid transparent;}
+a:hover, a:focus, a:active { color: #960f1a; border-bottom: 3px solid #960f1a; }
 a:focus { outline: thin dotted; }
 a:hover, a:active { outline: 0; }
 
@@ -469,12 +471,12 @@ a:hover, a:active { outline: 0; }
 	float: left;
 	position: relative;
 	width: 100%;
-	border-top: 1px solid #ccc; 
+	border-bottom: 1px solid #ccc; 
 }
-.main-navigation ul ul li { border-top: none; }
+.main-navigation ul ul li { border-bottom: none; }
 
-.main-navigation a { display: block; text-decoration: none; }
-.main-navigation ul a { font-weight: bold; padding: 10px; }
+.main-navigation a { display: block; text-decoration: none; border: none; }
+.main-navigation ul a { font-weight: bold; padding: 10px; text-transform: uppercase; }
 .main-navigation ul ul a { font-weight: normal; padding: 5px 10px 5px 20px; }
 .main-navigation ul ul ul a {
 	font-size: 80%;
@@ -487,14 +489,13 @@ a:hover, a:active { outline: 0; }
 
 .menu-toggle,
 .main-navigation.toggled ul { display: block; }
+.main-navigation .menu-toggle { margin-left: 60px; }
 
 @media screen and (min-width: 37.5em) {
 	.menu-toggle { display: none; }
 	
 	.main-navigation > div {
-		display: inline-block;
-		vertical-align: top;
-		width: 100%;
+		display: block;
 		background-color: #ccc;
 		text-align: center;
 	}
@@ -502,9 +503,8 @@ a:hover, a:active { outline: 0; }
 		display: inline-block;
 		vertical-align: top;
 		width: 100%;
-		max-width: 1200px;
 		text-align: left;
-		margin: 0;
+		margin: 0 40px;
 		padding: 0;
 	}
 	.main-navigation ul ul {
@@ -528,18 +528,20 @@ a:hover, a:active { outline: 0; }
 		padding: 20px 24px;
 		font-weight: normal;
 		font-size: 18px;
-		font-family: 'Orbitron', sans-serif;
-		font-weight: normal;
+		font-weight: bold;
+		text-transform: uppercase;
 	}
 	.main-navigation ul a:hover,
 	.main-navigation ul a:focus,
 	.main-navigation ul a:active { color: #e10013; }
 	.main-navigation ul.sub-menu a {
 		font-family: 'Open Sans', sans-serif;
-		padding: 20px 10px;
+		padding: 10px 10px;
 		font-size: 14px;
 		width: 200px;
 		color: #e10013;
+		text-transform: none;
+		font-weight: normal;
 	}
 	.main-navigation ul.sub-menu a:hover,
 	.main-navigation ul.sub-menu a:focus,
@@ -568,6 +570,7 @@ a:hover, a:active { outline: 0; }
 	position: relative;
 	margin: 10px 0;
 }
+.mid-front-page-navigation a { border: none; }
 .mid-front-page-navigation ul a { 
 	display: inline-block;
 	vertical-align: top;
@@ -578,7 +581,7 @@ a:hover, a:active { outline: 0; }
 	background-color: #ccc;
 	padding: 20px;
 	font-family: 'Orbitron', sans-serif;
-	font-weight: normal;
+	font-weight: bold;
 	font-size: 20px;
 	color: #000;
 }
@@ -588,6 +591,8 @@ a:hover, a:active { outline: 0; }
 .mid-front-page-navigation ul.sub-menu a {
 	font-family: 'Open Sans', sans-serif;
 	font-size: 18px;
+	font-weight: bold;
+	text-transform: uppercase;
 }
 
 @media screen and (min-width: 37.5em) {
@@ -716,28 +721,60 @@ a:hover, a:active { outline: 0; }
 .comment-content:after,
 .site-header:after,
 .site-content:after,
-.site-footer:after {
-	clear: both;
-}
+.site-footer:after { clear: both; }
 
 /*--------------------------------------------------------------
 # Widgets
 --------------------------------------------------------------*/
-.widget {
-	margin: 0 0 1.5em;
-	/* Make sure select elements fit in widgets. */
+.widget-area {
+	background-color: #eee;
 }
-
+.widget {
+	margin: 0;
+	display: inline-block;
+	vertical-align: top;
+	width: 100%;
+	padding: 20px;
+}
 .widget select {
 	max-width: 100%;
+}
+.widget ul { margin: 0; }
+
+#secondary { margin-top: 40px; font-size: 14px; }
+#secondary .widget h2 {
+	font-size: 16px;
+	margin: 2px 0;
+	font-weight: bold;
+}
+#secondary .widget ul {
+	list-style: none;
+	padding: 0;
+	border-top: 1px solid #ccc;
+}
+#secondary .widget ul li {
+	padding: 4px 0;
+	border-bottom: 1px solid #ccc;
+}
+
+@media screen and (min-width: 37.5em) {
+	#secondary .widget { 
+		width: 24.9%;
+		border-bottom: none;
+	}
 }
 
 /*--------------------------------------------------------------
 # Content
 --------------------------------------------------------------*/
+
+
 /*--------------------------------------------------------------
 ## Posts and pages
 --------------------------------------------------------------*/
+.content-area .page,
+.content-area .post { max-width: 760px; padding: 20px 40px 20px 60px; }
+
 .sticky {
 	display: block;
 }
@@ -759,6 +796,61 @@ a:hover, a:active { outline: 0; }
 .page-links {
 	clear: both;
 	margin: 0 0 1.5em;
+}
+
+.site-branding {
+	background-size: cover;
+	background-position: center center;
+}
+.site-branding .custom-logo-link {
+	display: inline-block;
+	vertical-align: top;
+	width: 100%;
+	border: none;
+	text-align: left;
+	margin: 20px 60px;
+}
+.site-branding .custom-logo-link img {
+	display: inline-block;
+	vertical-align: top;
+	max-height: 146px;
+	width: auto;
+}
+.site-branding .site-title {
+	color: #fff;
+	text-transform: uppercase;
+	font-weight: bold;
+	border-bottom: 3px solid;
+	margin: 0;
+	font-family: 'Orbitron', sans-serif;
+	background-color: #222;
+	font-size: 38px;
+	line-height: 40px;
+	padding-top: 84px;
+	text-shadow: 5px -5px #e10013;
+}
+.site-branding .site-title.hidden {
+	display: none;
+}
+.site-branding .site-title a {
+	color: #fff;
+	border: none;
+}
+.site-branding .site-description {
+	color: #555;
+	margin: 10px 0;
+	font-size: 14px;
+	padding: 20px 20px 20px 60px;
+	background-color: #fdfdfd;
+	display: inline-block;
+	vertical-align: top;
+}
+
+@media screen and (min-width: 37.5em) {
+	.site-branding .site-title {
+		font-size: 48px;
+		line-height: 21px;
+	}
 }
 
 /*--------------------------------------------------------------
