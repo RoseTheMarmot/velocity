@@ -78,10 +78,10 @@ class Walker_Mid_Front_Page_Menu extends Walker {
 	// Note: Menu objects include url and title properties.
 	function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
 		$background_image = get_the_post_thumbnail_url($item->object_id);
-		$output .= sprintf( "\n<li><a href='%s'%s%s><h2>%s</h2></a>",
+		$output .= sprintf( "\n<li %s><a href='%s'%s>%s</a>",
+			( !empty($background_image) ) ? 'style="background-image:url('.$background_image.');"' : '',
 			$item->url,
 			( $item->object_id === get_the_ID() ) ? ' class="current"' : '',
-			( !empty($background_image) ) ? 'style="background-image:url('.$background_image.');"' : '',
 			$item->title
 		);
 	}
