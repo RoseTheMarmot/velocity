@@ -114,6 +114,19 @@ function velocity_widgets_init() {
 add_action( 'widgets_init', 'velocity_widgets_init' );
 
 /**
+ * Register custom menus.
+ *
+ * @link https://codex.wordpress.org/Function_Reference/register_nav_menus
+ */
+function velocity_custom_menus_init() {
+	register_nav_menus(array(
+		'mid-front-page' => 'Mid Front Page',
+		'footer' => 'Footer'
+	));
+}
+add_action( 'after_setup_theme', 'velocity_custom_menus_init' );
+
+/**
  * Enqueue scripts and styles.
  */
 function velocity_scripts() {
